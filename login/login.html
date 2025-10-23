@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/login/loginStyle.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="left">
+        <img src="/assests/logo.png" alt="logo" />
+        <h1>VARN</h1>
+      </div>
+      <div class="right">
+        <a href="">login</a>
+        <button>Sign Up</button>
+      </div>
+    </nav>
+    <div class="section">
+      <div class="logo">
+        <img src="/assests/logo.png" alt="logo" />
+      </div>
+      <div class="heading">
+        <h1>Welcome to Varn</h1>
+      </div>
+      <div class="sub-heading">
+        <h2>Login to start your gaming journey</h2>
+      </div>
+      <div class="login-form">
+        <h1>Login</h1>
+        <h3>Enter your credentials to access your account</h3>
+        <form id="loginForm">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter Username"
+            required
+          />
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            required
+          />
+          <button type="submit">Login</button>
+          <p>Don't have an account? <a href="/login/SignUp.html">Sign Up</a></p>
+        </form>
+      </div>
+    </div>
+    <script src="/login/auth.js"></script>
+  </body>
+</html>

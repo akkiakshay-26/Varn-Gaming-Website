@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VARN</title>
+    <link rel="stylesheet" href="/Games/games.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="left">
+        <img src="/assests/logo.png" alt="logo" />
+        <h1>VARN</h1>
+      </div>
+      <div class="right">
+        <a href="/dashboard/dashboard.html">Dashboard</a>
+        <a href="games.html">Play</a>
+        <a href="">Profile</a>
+        <a href="">Logout</a>
+      </div>
+    </nav>
+    <div class="games">
+      <section class="tic-tac-toe">
+        <h2>Tic-Tac-Toe</h2>
+        <div id="board" class="board">
+          <div class="cell" data-index="0"></div>
+          <div class="cell" data-index="1"></div>
+          <div class="cell" data-index="2"></div>
+          <div class="cell" data-index="3"></div>
+          <div class="cell" data-index="4"></div>
+          <div class="cell" data-index="5"></div>
+          <div class="cell" data-index="6"></div>
+          <div class="cell" data-index="7"></div>
+          <div class="cell" data-index="8"></div>
+        </div>
+        <p id="status"></p>
+        <button id="resetBtn">Restart Game</button>
+      </section>
+      <section class="brick-breaker">
+        <h2>Brick Breaker</h2>
+        <canvas
+          id="gameCanvas"
+          width="480"
+          height="320"
+          style="border: 1px solid #333"
+        ></canvas>
+        <p id="score">Score: 0</p>
+        <button id="startGameBtn">Start Game</button>
+        <button id="resetGameBtn">Restart Game</button>
+      </section>
+    </div>
+    <script src="/Games/script.js"></script>
+  </body>
+</html>
