@@ -41,7 +41,7 @@ if (signupForm) {
       alert(data.message);
 
       if (res.status === 200) {
-        window.location.href = "/login/login.html"; // redirect to login after signup
+        window.location.href = "/login.html"; // redirect to login after signup
       }
     } catch (err) {
       console.error(err);
@@ -75,7 +75,7 @@ if (loginForm) {
       alert(data.message);
 
       if (res.status === 200) {
-        window.location.href = "/dashboard.html"; // redirect after login
+        window.location.href = "/dashboard/dashboard.html"; // redirect after login
       }
     } catch (err) {
       console.error(err);
