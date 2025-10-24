@@ -3,63 +3,146 @@
   padding: 0;
   box-sizing: border-box;
 }
-body
-{
-    background-color: rgb(191, 245, 251);
+
+body {
+  background-color: lightblue;
+  font-family: Arial, sans-serif;
 }
+
 nav {
   display: flex;
   justify-content: space-between;
   background-color: cadetblue;
-  height: 10vh;
-  width: 100vw;
+  padding: 15px;
+  flex-wrap: wrap;
 }
+
 .left {
   display: flex;
-  gap: 10px;
-  padding: 10px;
-}
-.right {
-  display: flex;
-  gap: 15px;
-  padding: 10px;
+  gap: 20px;
   align-items: center;
 }
+
+.left img {
+  height: 50px;
+  width: 50px;
+}
+
+.left h1 {
+  color: white;
+  font-size: 28px;
+}
+
+.right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 a {
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
 }
+
+a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
 .right button {
   border: none;
-  border-radius: 5px;
-  padding: 8px;
+  border-radius: 25px;
+  padding: 10px 20px;
+  background-color: white;
+  color: cadetblue;
+  font-size: 16px;
+  cursor: pointer;
 }
+
+.right button:hover {
+  background-color: lightgray;
+}
+
 .section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 60px;
-  height: 90vh;
-  width: 90vw;
-  margin: auto;
+  gap: 40px;
+  min-height: 80vh;
+  padding: 20px;
+  text-align: center;
 }
-.heading h1{
-    font-size: 80px;
+
+.logo img {
+  height: 120px;
+  width: 120px;
 }
-.buttons button{
-    border: none;
-    border-radius:50px;
-    padding: 15px;
-    background-color: rgb(46, 64, 141);
-    color: white;
+
+.heading h1 {
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 10px;
 }
-.buttons{
-    display: flex;
+
+.sub-heading h2 {
+  font-size: 20px;
+  color: #666;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.buttons button {
+  border: none;
+  border-radius: 25px;
+  padding: 15px 30px;
+  background-color: darkblue;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.buttons button:hover {
+  background-color: navy;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .right {
     justify-content: center;
-    gap: 20px;
-   
-}
-.logo img{
-    height: 100px;
+    margin-top: 10px;
+  }
+  
+  .heading h1 {
+    font-size: 36px;
+  }
+  
+  .sub-heading h2 {
+    font-size: 18px;
+  }
+  
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo img {
+    height: 80px;
+    width: 80px;
+  }
 }

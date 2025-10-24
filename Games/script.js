@@ -1,118 +1,174 @@
-const board = document.getElementById("board");
-const status = document.getElementById("status");
-const resetBtn = document.getElementById("resetBtn");
+var board = document.getElementById("board");
+var status = document.getElementById("status");
+var resetBtn = document.getElementById("resetBtn");
 
-let cells = Array.from(document.querySelectorAll(".cell"));
-let currentPlayer = "X";
-let gameActive = true;
-let boardState = ["", "", "", "", "", "", "", "", ""];
+var cells = document.querySelectorAll(".cell");
+var currentPlayer = "X";
+var gameActive = true;
+var boardState = ["", "", "", "", "", "", "", "", ""];
 
-const winningCombos = [
+var winningCombos = [
   [0, 1, 2],
   [3, 4, 5],
-  [6, 7, 8], // rows
+  [6, 7, 8],
   [0, 3, 6],
   [1, 4, 7],
-  [2, 5, 8], // columns
+  [2, 5, 8],
   [0, 4, 8],
-  [2, 4, 6], // diagonals
+  [2, 4, 6]
 ];
 
 function checkWinner() {
-  for (let combo of winningCombos) {
-    const [a, b, c] = combo;
-    if (
-      boardState[a] &&
-      boardState[a] === boardState[b] &&
-      boardState[a] === boardState[c]
-    ) {
-      status.textContent = `Player ${currentPlayer} wins!`;
+  for (var i = 0; i < winningCombos.length; i++) {
+    var a = winningCombos[i][0];
+    var b = winningCombos[i][1];
+    var c = winningCombos[i][2];
+    if (boardState[a] && boardState[a] == boardState[b] && boardState[a] == boardState[c]) {
       gameActive = false;
-      return;
+      var statusElement = document.getElementById("status");
+      if (statusElement) {
+        statusElement.textContent = "Player " + currentPlayer + " wins!";
+        statusElement.style.color = "green";
+        statusElement.style.fontWeight = "bold";
+        statusElement.style.display = "block";
+      }
+      alert("Player " + currentPlayer + " wins!");
+      if (typeof updateGameStats === 'function') {
+        updateGameStats("ticTacToe", true);
+      }
+      return true;
     }
   }
-  if (!boardState.includes("")) {
-    status.textContent = "It's a draw!";
-    gameActive = false;
+  var hasEmpty = false;
+  for (var j = 0; j < boardState.length; j++) {
+    if (boardState[j] == "") {
+      hasEmpty = true;
+      break;
+    }
   }
+  if (!hasEmpty) {
+    gameActive = false;
+    var statusElement = document.getElementById("status");
+    if (statusElement) {
+      statusElement.textContent = "It's a draw!";
+      statusElement.style.color = "orange";
+      statusElement.style.fontWeight = "bold";
+      statusElement.style.display = "block";
+    }
+    alert("It's a draw!");
+    if (typeof updateGameStats === 'function') {
+      updateGameStats("ticTacToe", false);
+    }
+    return true;
+  }
+  return false;
 }
 
 function handleCellClick(e) {
-  const index = e.target.getAttribute("data-index");
-  if (boardState[index] !== "" || !gameActive) return;
+  var index = e.target.getAttribute("data-index");
+  if (boardState[index] != "" || !gameActive) return;
 
   boardState[index] = currentPlayer;
   e.target.textContent = currentPlayer;
 
-  checkWinner();
+  if (checkWinner()) {
+    return;
+  }
 
   if (gameActive) {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    status.textContent = `Player ${currentPlayer}'s turn`;
+    if (currentPlayer == "X") {
+      currentPlayer = "O";
+    } else {
+      currentPlayer = "X";
+    }
+    var statusElement = document.getElementById("status");
+    if (statusElement) {
+      statusElement.textContent = "Player " + currentPlayer + "'s turn";
+    }
   }
 }
 
-function resetGame() {
+function resetTicTacToe() {
   boardState = ["", "", "", "", "", "", "", "", ""];
-  cells.forEach((cell) => (cell.textContent = ""));
+  for (var i = 0; i < cells.length; i++) {
+    cells[i].textContent = "";
+  }
   currentPlayer = "X";
   gameActive = true;
-  status.textContent = `Player ${currentPlayer}'s turn`;
+  var statusElement = document.getElementById("status");
+  if (statusElement) {
+    statusElement.textContent = "Player " + currentPlayer + "'s turn";
+    statusElement.style.color = "#333";
+    statusElement.style.fontWeight = "normal";
+    statusElement.style.display = "block";
+  }
 }
 
-cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
-resetBtn.addEventListener("click", resetGame);
+for (var i = 0; i < cells.length; i++) {
+  cells[i].addEventListener("click", handleCellClick);
+}
+resetBtn.addEventListener("click", resetTicTacToe);
 
-// Initial status
-status.textContent = `Player ${currentPlayer}'s turn`;
+var statusElement = document.getElementById("status");
+if (statusElement) {
+  statusElement.textContent = "Player " + currentPlayer + "'s turn";
+  statusElement.style.display = "block";
+}
 
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+var canvas = document.getElementById("gameCanvas");
+var ctx = canvas.getContext("2d");
 
-let x = canvas.width / 2;
-let y = canvas.height - 30;
-let dx = 2;
-let dy = -2;
-const ballRadius = 10;
+var x = canvas.width / 2;
+var y = canvas.height - 30;
+var dx = 1;
+var dy = -1;
+var ballRadius = 10;
 
-const paddleHeight = 10;
-const paddleWidth = 75;
-let paddleX = (canvas.width - paddleWidth) / 2;
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width - paddleWidth) / 2;
 
-let rightPressed = false;
-let leftPressed = false;
+var rightPressed = false;
+var leftPressed = false;
 
-const brickRowCount = 3;
-const brickColumnCount = 5;
-const brickWidth = 75;
-const brickHeight = 20;
-const brickPadding = 10;
-const brickOffsetTop = 30;
-const brickOffsetLeft = 30;
+var brickRowCount = 3;
+var brickColumnCount = 5;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
 
-let bricks = [];
-for (let c = 0; c < brickColumnCount; c++) {
+var bricks = [];
+for (var c = 0; c < brickColumnCount; c++) {
   bricks[c] = [];
-  for (let r = 0; r < brickRowCount; r++) {
+  for (var r = 0; r < brickRowCount; r++) {
     bricks[c][r] = { x: 0, y: 0, status: 1 };
   }
 }
 
-let score = 0;
-let gameRunning = false; // Control flag for start/stop
+var score = 0;
+var gameRunning = false;
 
-// Event listeners
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
-  if (e.key === "Right" || e.key === "ArrowRight") rightPressed = true;
-  else if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = true;
+  if (e.key == "Right" || e.key == "ArrowRight") {
+    rightPressed = true;
+  }
+  if (e.key == "Left" || e.key == "ArrowLeft") {
+    leftPressed = true;
+  }
 }
 
 function keyUpHandler(e) {
-  if (e.key === "Right" || e.key === "ArrowRight") rightPressed = false;
-  else if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = false;
+  if (e.key == "Right" || e.key == "ArrowRight") {
+    rightPressed = false;
+  }
+  if (e.key == "Left" || e.key == "ArrowLeft") {
+    leftPressed = false;
+  }
 }
 
 function drawBall() {
@@ -132,16 +188,16 @@ function drawPaddle() {
 }
 
 function drawBricks() {
-  for (let c = 0; c < brickColumnCount; c++) {
-    for (let r = 0; r < brickRowCount; r++) {
-      if (bricks[c][r].status === 1) {
-        let brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
-        let brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+  for (var c = 0; c < brickColumnCount; c++) {
+    for (var r = 0; r < brickRowCount; r++) {
+      if (bricks[c][r].status == 1) {
+        var brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+        var brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
         bricks[c][r].x = brickX;
         bricks[c][r].y = brickY;
         ctx.beginPath();
         ctx.rect(brickX, brickY, brickWidth, brickHeight);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = "blue";
         ctx.fill();
         ctx.closePath();
       }
@@ -150,17 +206,18 @@ function drawBricks() {
 }
 
 function collisionDetection() {
-  for (let c = 0; c < brickColumnCount; c++) {
-    for (let r = 0; r < brickRowCount; r++) {
-      let b = bricks[c][r];
-      if (b.status === 1) {
+  for (var c = 0; c < brickColumnCount; c++) {
+    for (var r = 0; r < brickRowCount; r++) {
+      var b = bricks[c][r];
+      if (b.status == 1) {
         if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
           dy = -dy;
           b.status = 0;
-          score++;
+          score = score + 1;
           document.getElementById("score").textContent = "Score: " + score;
-          if (score === brickRowCount * brickColumnCount) {
+          if (score == brickRowCount * brickColumnCount) {
             alert("YOU WIN!");
+            updateGameStats("brickBreaker", true);
             stopGame();
           }
         }
@@ -170,7 +227,7 @@ function collisionDetection() {
 }
 
 function draw() {
-  if (!gameRunning) return; // stop drawing if not running
+  if (!gameRunning) return;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
@@ -178,24 +235,29 @@ function draw() {
   drawPaddle();
   collisionDetection();
 
-  // Ball movement
-  x += dx;
-  y += dy;
+  x = x + dx;
+  y = y + dy;
 
-  // Wall collisions
-  if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) dx = -dx;
-  if (y + dy < ballRadius) dy = -dy;
-  else if (y + dy > canvas.height - ballRadius) {
-    if (x > paddleX && x < paddleX + paddleWidth) dy = -dy;
-    else {
+  if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+    dx = -dx;
+  }
+  if (y + dy < ballRadius) {
+    dy = -dy;
+  } else if (y + dy > canvas.height - ballRadius) {
+    if (x > paddleX && x < paddleX + paddleWidth) {
+      dy = -dy;
+    } else {
       alert("GAME OVER");
+      updateGameStats("brickBreaker", false);
       stopGame();
     }
   }
 
-  // Paddle movement
-  if (rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 7;
-  else if (leftPressed && paddleX > 0) paddleX -= 7;
+  if (rightPressed && paddleX < canvas.width - paddleWidth) {
+    paddleX = paddleX + 5;
+  } else if (leftPressed && paddleX > 0) {
+    paddleX = paddleX - 5;
+  }
 
   requestAnimationFrame(draw);
 }
@@ -211,22 +273,67 @@ function stopGame() {
   gameRunning = false;
 }
 
-function resetGame() {
+function resetBrickBreaker() {
   stopGame();
   x = canvas.width / 2;
   y = canvas.height - 30;
-  dx = 2;
-  dy = -2;
+  dx = 1;
+  dy = -1;
   paddleX = (canvas.width - paddleWidth) / 2;
-  bricks.forEach(column => column.forEach(b => b.status = 1));
+  for (var c = 0; c < brickColumnCount; c++) {
+    for (var r = 0; r < brickRowCount; r++) {
+      bricks[c][r].status = 1;
+    }
+  }
   score = 0;
   document.getElementById("score").textContent = "Score: " + score;
   document.getElementById("startGameBtn").disabled = false;
+  
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBricks();
+  drawBall();
+  drawPaddle();
 }
 
-// Buttons
-document.getElementById("startGameBtn").addEventListener("click", () => {
+document.getElementById("startGameBtn").addEventListener("click", function() {
   startGame();
   document.getElementById("startGameBtn").disabled = true;
 });
-document.getElementById("resetGameBtn").addEventListener("click", resetGame);
+document.getElementById("resetGameBtn").addEventListener("click", resetBrickBreaker);
+
+resetBrickBreaker();
+
+function updateGameStats(game, won) {
+  var stats = localStorage.getItem('gameStats');
+  if (stats) {
+    stats = JSON.parse(stats);
+  } else {
+    stats = {
+      totalWins: 0,
+      totalGames: 0,
+      ticTacToeWins: 0,
+      ticTacToeGames: 0,
+      brickBreakerWins: 0,
+      brickBreakerGames: 0
+    };
+  }
+  
+  stats.totalGames = stats.totalGames + 1;
+  if (won) {
+    stats.totalWins = stats.totalWins + 1;
+  }
+  
+  if (game == "ticTacToe") {
+    stats.ticTacToeGames = stats.ticTacToeGames + 1;
+    if (won) {
+      stats.ticTacToeWins = stats.ticTacToeWins + 1;
+    }
+  } else if (game == "brickBreaker") {
+    stats.brickBreakerGames = stats.brickBreakerGames + 1;
+    if (won) {
+      stats.brickBreakerWins = stats.brickBreakerWins + 1;
+    }
+  }
+  
+  localStorage.setItem('gameStats', JSON.stringify(stats));
+}

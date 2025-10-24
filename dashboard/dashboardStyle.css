@@ -3,63 +3,139 @@
   padding: 0;
   box-sizing: border-box;
 }
-body
-{
-    background-color: rgb(191, 245, 251);
+
+body {
+  background-color: lightblue;
+  font-family: Arial, sans-serif;
 }
+
 nav {
   display: flex;
   justify-content: space-between;
   background-color: cadetblue;
-  height: 10vh;
-  width: 100vw;
+  padding: 15px;
+  flex-wrap: wrap;
 }
+
 .left {
   display: flex;
-  gap: 50px;
-  padding: 10px;
-  width: 20vw;
-  /* background-color: red; */
-}
-.right {
-    width: 80vw;
-  display: flex;
-  gap: 15px;
+  gap: 20px;
   align-items: center;
-  justify-content: space-evenly;
 }
+
+.left img {
+  height: 50px;
+  width: 50px;
+}
+
+.left h1 {
+  color: white;
+  font-size: 28px;
+}
+
+.right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 a {
   text-decoration: none;
-  font-size: 20px;
-}
-.right button {
-  border: none;
+  font-size: 18px;
+  color: white;
+  padding: 8px 15px;
   border-radius: 5px;
-  padding: 8px;
 }
+
+a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
 .section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 60px;
-  height: 90vh;
-  width: 90vw;
-  margin: auto;
+  gap: 40px;
+  min-height: 80vh;
+  padding: 20px;
+  text-align: center;
 }
-.heading h1{
-    font-size: 80px;
+
+.heading h1 {
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 10px;
 }
-.display{
-    display: flex;
+
+.sub-heading h2 {
+  font-size: 20px;
+  color: #666;
+  max-width: 600px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 900px;
+}
+
+.displayStyle {
+  background-color: white;
+  border: 3px solid cadetblue;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  min-width: 150px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.displayStyle h1:first-child {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 15px;
+  font-weight: normal;
+}
+
+.displayStyle h1:last-child {
+  font-size: 36px;
+  color: cadetblue;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .right {
     justify-content: center;
-    align-items: center;
-    gap: 100px;
-}
-.displayStyle{
-    border: 2px solid cadetblue;
-    padding: 10px;
-}
-.logo img{
-    height: 100px;
+    margin-top: 10px;
+  }
+  
+  .heading h1 {
+    font-size: 36px;
+  }
+  
+  .sub-heading h2 {
+    font-size: 18px;
+  }
+  
+  .display {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .displayStyle {
+    width: 100%;
+    max-width: 300px;
+  }
 }
